@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Brand Manager{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Year</th>
+                <th>Logo</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for brand in brands %}
+            <tr>
+                <td>{{ brand.id }}</td>
+                <td>{{ brand.Name }}</td>
+                <td>{{ brand.Description }}</td>
+                <td>{{ brand.Year | date("Y") }}</td>
+                <td><img src="{{ asset('uploads/images/' ~ brand.Logo ~ '') }}" alt="{{ brand.Name }}" style="width: 200px; height: 200px;"></td>
+                <td>
+                    <a href="{{ asset('manager/brand/update/' ~ brand.id ~ '') }}" class="btn btn-warning" role="button">Update</a>
+                    <a href="{{ asset('manager/brand/delete/' ~ brand.id ~ '') }}" class="btn btn-danger" role="button" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ asset('manager/brand/create') }}" class="btn btn-success" role="button">Add</a>
+</div>
+{% endblock %}

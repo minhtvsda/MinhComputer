@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product Manager{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Year</th>
+                <th>Brand</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td><img class="img-thumbnail" src="{{ asset('uploads/images/' ~ product.Image ~ '') }}" alt="{{ product.Name }}" style="max-width: 300px;"></td>
+                <td>{{ product.Name }}</td>
+                <td>{{ product.Year | date("d/m/Y") }}</td>
+                <td>{{ product.Brand.Name }}</td>
+                <td>{{ product.Price }} USD</td>
+                <td>{{ product.Stock }}</td>
+                <td>
+                    <a href="{{ asset('manager/product/update/' ~ product.id ~ '') }}" class="btn btn-warning" role="button">Update</a>
+                    <a href="{{ asset('manager/product/delete/' ~ product.id ~ '') }}" class="btn btn-danger" role="button" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ asset('manager/product/create') }}" class="btn btn-success" role="button">Add</a>
+</div>
+{% endblock %}
